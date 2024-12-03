@@ -1,5 +1,4 @@
 requests
-threading
 base64
 tls_client
 time
