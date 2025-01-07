@@ -271,6 +271,45 @@ def pull():
             except Exception as e:
                 Utils.sprint(str(e), "r")
                 return
+    if "https://account.live.com/ar/cancel?" in response.url:
+        headers = {
+            "authority": "account.live.com",
+            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+            "accept-language": "en-US,en;q=0.8",
+            "cache-control": "max-age=0",
+            "content-type": "application/x-www-form-urlencoded",
+            "origin": "https://account.live.com",
+            "referer": response.url,
+            "sec-ch-ua": '"Chromium";v="112", "Brave";v="112", "Not:A-Brand";v="99"',
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": '"Windows"',
+            "sec-fetch-dest": "document",
+            "sec-fetch-mode": "navigate",
+            "sec-fetch-site": "same-origin",
+            "sec-fetch-user": "?1",
+            "sec-gpc": "1",
+            "upgrade-insecure-requests": "1",
+            "user-agent": ua,
+        }
+
+        data = {
+            "action": "Next",
+        }
+        while True:
+            try:
+                response = s.post(
+                    response.text.split('id="frmAddProof" method="post" action="')[
+                        1
+                    ].split('"')[0],
+                    headers=headers,
+                    data=data,
+                )
+                break
+            except request_exceptions:
+                continue
+            except Exception as e:
+                Utils.sprint(str(e), "r")
+                return
     try:
         rpsTicket = response.url.split("access_token=")[1].split("&")[0]
     except:
